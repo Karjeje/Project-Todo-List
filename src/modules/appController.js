@@ -1,3 +1,7 @@
+import Project from "./project";
+import Task from "./task";
+import { renderProjectList, renderTodoList } from "./domController";
+
 const AppController = (() => {
     const projects = [];
     let currentProject = null;
