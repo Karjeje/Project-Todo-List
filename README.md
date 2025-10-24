@@ -1,1 +1,1 @@
-# Project-Todo-List
+In this project I will be trying to use all I've learned about objects, constructors, factory functions, classes, webpack and so on. I will be building a to-do list that will be able to contain mutliple projects.
