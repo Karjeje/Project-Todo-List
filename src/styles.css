@@ -54,8 +54,20 @@ li {
     border-radius: 10px;
 }
 
-.todolist > li {
-    width: 140px;
+.todolist > li > div, .projectlist > li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todolist > li button, .projectlist > li > button {
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .projectlist > li:hover {
@@ -64,8 +76,21 @@ li {
 }
 
 .todolist > li:hover {
-    background-color: brown;
-    color: white;
+    /* background-color: brown;
+    color: white; */
     cursor: pointer;
+}
+
+.low {
+    background-color: rgb(16, 161, 14, 0.3);
+
+}
+
+.normal {
+    background-color: rgb(240, 240, 63, 0.3);
+}
+
+.high {
+    background-color: rgb(206, 39, 39, 0.3);
 }
 
