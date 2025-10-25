@@ -2,7 +2,11 @@ import "./styles.css";
 import AppController from "./modules/appController";
 
 document.addEventListener("DOMContentLoaded", () => {
-  AppController.addProject("Daily");
+  AppController.loadFromLocalStorage();
+  
+  if(AppController.getProjects().length === 0) {
+    AppController.addProject("Daily");
+  }
 
   const addProjectBtn = document.querySelector("#add-project-btn");
   addProjectBtn.classList.add("addprojectbtn");
