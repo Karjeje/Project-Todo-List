@@ -4,12 +4,21 @@ export function renderProjectList() {
     const list = document.querySelector("#project-list");
     list.classList.add("projectlist");
     list.innerHTML = "";
-    AppController.getProjects().forEach(project => {
+    AppController.getProjects().forEach((project, index) => {
         const li = document.createElement("li");
-        li.textContent = project.name;
+        const span = document.createElement("span");
+        const removeBtn = document.createElement("button");
+        span.textContent = project.name;
         li.addEventListener("click", () => {
             AppController.setCurrentProject(project.name);
         });
+        removeBtn.innerHTML = "X"
+        removeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            AppController.removeProject(index);
+        });
+        li.appendChild(span);
+        li.appendChild(removeBtn);
         list.appendChild(li);
     });
 }
@@ -19,12 +28,19 @@ export function renderTodoList() {
   const list = document.querySelector("#todo-list");
   list.classList.add("todolist");
   const title = document.querySelector("#project-title");
-  
+
+  if (!project) {
+    title.textContent = "No project selected";
+    return;
+  }
+
   title.textContent = project.name;
   list.innerHTML = "";
 
   project.tasks.forEach((task, index) => {
     const li = document.createElement("li");
+    const summary = document.createElement("div");
+    summary.classList.add("summary");
     const span = document.createElement("span");
     const removeBtn = document.createElement("button");
     span.textContent = `${task.title}, due ${task.dueDate}`;
@@ -32,8 +48,42 @@ export function renderTodoList() {
     removeBtn.addEventListener("click", () => {
         AppController.removeTaskFromCurrentProject(index);
     })
-    li.appendChild(span);
-    li.appendChild(removeBtn);
+
+    const details = document.createElement("div");
+    details.classList.add("details");
+    details.style.display = "none";
+    details.innerHTML = `
+        <div>
+            <p><strong>Description:</strong> ${task.description}</p>
+            <p><strong>Priority:</strong> ${task.priority}</p>
+        </div>
+        <button class="edit-task">Edit</button>
+    `
+
+    summary.addEventListener("click", () => {
+        details.style.display = details.style.display === "none" ? "flex" : "none";
+    })
+
+    details.querySelector(".edit-task").addEventListener("click", () => {
+      const newTitle = prompt("Edit title:", task.title);
+      if (newTitle !== null) task.title = newTitle;
+
+      const newDesc = prompt("Edit description:", task.description);
+      if (newDesc !== null) task.description = newDesc;
+
+      const newDate = prompt("Edit due date:", task.dueDate);
+      if (newDate !== null) task.dueDate = newDate;
+
+      const newPriority = prompt("Edit priority (low, normal, high):", task.priority);
+      if (newPriority !== null) task.priority = newPriority;
+
+      renderTodoList();
+    });
+
+    li.appendChild(summary);
+    li.appendChild(details);
+    summary.appendChild(span);
+    summary.appendChild(removeBtn);
     list.appendChild(li);
   });
 }
