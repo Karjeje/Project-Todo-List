@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
+    font-family: sans-serif;
 }
 
 body {
@@ -20,7 +21,7 @@ h1 {
 }
 
 #sidebar {
-    background-color: gray;
+    background-color: lightgray;
     height: 100vh;
     padding: 20px;
 }
@@ -30,3 +31,41 @@ h1 {
     height: 100vh;
     padding: 20px;
 }
+
+#project-title, .title {
+    margin-bottom: 14px;
+}
+
+.addprojectbtn, .addtaskbtn {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.addprojectbtn:hover, .addtaskbtn:hover {
+    background-color: antiquewhite;
+}
+
+li {
+    margin-bottom: 6px;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.todolist > li {
+    width: 140px;
+}
+
+.projectlist > li:hover {
+    background-color: azure;
+    cursor: pointer;
+}
+
+.todolist > li:hover {
+    background-color: brown;
+    color: white;
+    cursor: pointer;
+}
+
