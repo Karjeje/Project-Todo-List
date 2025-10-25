@@ -34,8 +34,3 @@ document.addEventListener("DOMContentLoaded", () => {
   addTaskBtn.addEventListener("click", addTaskWithBtn);
 
 });
-
-
-
-AppController.addProject("Work");
-AppController.addProject("Gym");
