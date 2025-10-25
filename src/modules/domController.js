@@ -23,9 +23,17 @@ export function renderTodoList() {
   title.textContent = project.name;
   list.innerHTML = "";
 
-  project.tasks.forEach(task => {
+  project.tasks.forEach((task, index) => {
     const li = document.createElement("li");
-    li.textContent = task.title;
+    const span = document.createElement("span");
+    const removeBtn = document.createElement("button");
+    span.textContent = `${task.title}, due ${task.dueDate}`;
+    removeBtn.innerHTML = "X";
+    removeBtn.addEventListener("click", () => {
+        AppController.removeTaskFromCurrentProject(index);
+    })
+    li.appendChild(span);
+    li.appendChild(removeBtn);
     list.appendChild(li);
   });
 }
