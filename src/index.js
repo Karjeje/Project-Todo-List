@@ -16,9 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function addTaskWithBtn() {
     const title = prompt("Task Name:");
+    if (title === null) return;
     const description = prompt("Description:");
+    if (description === null) return;
     const dueDate = prompt("Due Date (YYYY-MM-DD):");
+    if (dueDate === null) return;
     const priority = prompt("Priority (low, normal, high):");
+    if (priority === null) return;
     AppController.addTaskToCurrentProject({ title, description, dueDate, priority });
   }
 
