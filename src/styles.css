@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    list-style-type: none;
 }
 
 body {
@@ -21,9 +22,11 @@ h1 {
 #sidebar {
     background-color: gray;
     height: 100vh;
+    padding: 20px;
 }
 
 #display {
     background-color: white;
     height: 100vh;
+    padding: 20px;
 }
