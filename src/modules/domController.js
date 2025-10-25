@@ -39,6 +39,15 @@ export function renderTodoList() {
 
   project.tasks.forEach((task, index) => {
     const li = document.createElement("li");
+    if (task.priority === "low") {
+        li.classList.add("low");
+    }
+    else if (task.priority === "normal") {
+        li.classList.add("normal");
+    }
+    else if (task.priority === "high") {
+        li.classList.add("high");
+    };
     const summary = document.createElement("div");
     summary.classList.add("summary");
     const span = document.createElement("span");
