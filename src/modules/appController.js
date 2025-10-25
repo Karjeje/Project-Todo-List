@@ -26,8 +26,8 @@ const AppController = (() => {
     return projects;
   }
 
-    function addTaskToCurrentProject(taskData) {
-        const task = new Task(...taskData);
+    function addTaskToCurrentProject({ title, description, dueDate, priority}) {
+        const task = new Task(title, description, dueDate, priority);
         currentProject.addTask(task);
         renderTodoList();
     }
