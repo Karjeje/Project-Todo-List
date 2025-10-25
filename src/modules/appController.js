@@ -38,7 +38,17 @@ const AppController = (() => {
         renderTodoList();
     }
 
-    return { addProject, setCurrentProject, getCurrentProject, getProjects, addTaskToCurrentProject, removeTaskFromCurrentProject }
+    function removeProject(projectIndex) {
+        projects.splice(projectIndex, 1);
+
+        if (!projects.includes(currentProject)) {
+            currentProject = projects[0] || null;
+        }
+        renderProjectList();
+        renderTodoList();
+    }
+
+    return { addProject, setCurrentProject, getCurrentProject, getProjects, addTaskToCurrentProject, removeTaskFromCurrentProject, removeProject }
 })()
 
 export default AppController;
