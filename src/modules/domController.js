@@ -101,6 +101,8 @@ function openTaskModal(task = null) {
         form.reset();
         delete form.dataset.taskId;
     }
+
+    form.querySelector("#task-title").focus();
 }
 
 cancelBtn.addEventListener("click", () => {
@@ -123,6 +125,7 @@ form.addEventListener("submit", (e) => {
     }
 
     modal.classList.add("hidden");
+    form.reset();
 })
 
 export {openTaskModal};
