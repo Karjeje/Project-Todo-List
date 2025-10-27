@@ -38,6 +38,18 @@ const AppController = (() => {
     }
 
     function addProject(name) {
+
+        if (!name || name.trim() === "") {
+            alert("Project names cannot be empty.")
+            return;
+        }
+
+        const existing = projects.find (p => p.name.toLowerCase() === name.toLowerCase());
+        if (existing) {
+            alert("Project name already exists.");
+            return;
+        }
+
         const project = new Project(name);
         projects.push(project);
         if (!currentProject) currentProject = project;
@@ -60,6 +72,28 @@ const AppController = (() => {
   }
 
     function addTaskToCurrentProject({ title, description, dueDate, priority}) {
+
+        if (!currentProject) {
+            alert("Select a project.");
+            return;
+        }
+
+        if (!title || title.trim() === "") {
+            alert("Task names cannot be empty.");
+            return;
+        }
+
+        if (!dueDate || isNaN(Date.parse(dueDate))) {
+            alert("Invalid date format. Use YYYY-MM-DD.");
+            return;
+        }
+
+        const allowedPriorities = ["low", "normal", "high"];
+        if (!allowedPriorities.includes(priority.toLowerCase()))  {
+            alert("Priority must be: low, normal, or high.");
+            return;
+        }
+
         const task = new Task(title, description, dueDate, priority);
         currentProject.addTask(task);
         renderTodoList();
