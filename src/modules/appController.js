@@ -66,15 +66,28 @@ const AppController = (() => {
         saveToLocalStorage();
     }
 
-    function removeTaskFromCurrentProject(taskIndex) {
-        const project = currentProject;
-        project.tasks.splice(taskIndex, 1);
+    function removeTaskFromCurrentProject(taskId) {
+        if (!currentProject) return;
+        const idx = currentProject.tasks.findIndex(t => t.id === taskId);
+        if (idx === -1) return;
+        currentProject.tasks.splice(idx, 1);
         renderTodoList();
         saveToLocalStorage();
     }
 
-    function removeProject(projectIndex) {
-        projects.splice(projectIndex, 1);
+    function updateTask(taskId, updates) {
+        if (!currentProject) return;
+        const task = currentProject.tasks.find(t => t.id === taskId);
+        if (!task) return;
+        Object.assign(task, updates)
+        renderTodoList();
+        saveToLocalStorage();
+    }
+
+    function removeProject(projectId) {
+        const idx = projects.findIndex(p => p.id === projectId);
+        if (idx === -1) return;
+        projects.splice(idx, 1);
 
         if (!projects.includes(currentProject)) {
             currentProject = projects[0] || null;
@@ -84,7 +97,7 @@ const AppController = (() => {
         saveToLocalStorage();
     }
 
-    return { addProject, setCurrentProject, getCurrentProject, getProjects, addTaskToCurrentProject, removeTaskFromCurrentProject, removeProject, loadFromLocalStorage }
+    return { addProject, setCurrentProject, getCurrentProject, getProjects, addTaskToCurrentProject, removeTaskFromCurrentProject, removeProject, loadFromLocalStorage, updateTask }
 })()
 
 export default AppController;
