@@ -1,5 +1,6 @@
 import "./styles.css";
 import AppController from "./modules/appController";
+import {openTaskModal} from "./modules/domController";
 
 document.addEventListener("DOMContentLoaded", () => {
   AppController.loadFromLocalStorage();
@@ -18,19 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
       AppController.addProject(projectName);
   }
 
-  function addTaskWithBtn() {
-    const title = prompt("Task Name:");
-    if (title === null) return;
-    const description = prompt("Description:");
-    if (description === null) return;
-    const dueDate = prompt("Due Date (YYYY-MM-DD):");
-    if (dueDate === null) return;
-    const priority = prompt("Priority (low, normal, high):");
-    if (priority === null) return;
-    AppController.addTaskToCurrentProject({ title, description, dueDate, priority });
-  }
-
   addProjectBtn.addEventListener("click", addProjectWithBtn);
-  addTaskBtn.addEventListener("click", addTaskWithBtn);
+  
+  addTaskBtn.addEventListener("click", () => openTaskModal());
 
 });
