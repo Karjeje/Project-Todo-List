@@ -30,7 +30,7 @@ export function renderTodoList() {
   const title = document.querySelector("#project-title");
 
   if (!project) {
-    title.textContent = "No project selected";
+    title.textContent = "No project selected.";
     return;
   }
 
@@ -102,3 +102,45 @@ export function renderTodoList() {
     list.appendChild(li);
   });
 }
+
+const modal = document.querySelector("#task-modal");
+const form = document.querySelector("#task-form");
+const cancelBtn = document.querySelector("#cancel-btn");
+
+function openTaskModal(task = null) {
+    modal.classList.remove("hidden");
+
+    if (task) {
+        form.dataset.taskId = task.id;
+        form.querySelector("#task-title").value = task.title;
+        form.querySelector("#task-desc").value = task.description;
+        form.querySelector("#task-date").value = task.dueDate;
+        form.querySelector("#task-priority").value = task.priority;
+    }
+    else {
+        form.reset();
+        delete form.dataset.taskId;
+    }
+}
+
+cancelBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+});
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const title = form.querySelector("#task-title").value;
+    const description = form.querySelector("#task-desc").value;
+    const dueDate = form.querySelector("#task-date").value;
+    const priority = form.querySelector("#task-priority").value;
+
+    if (form.dataset.taskId) {
+        AppController.updateTask(form.dataset.taskId, { title, description, dueDate, priority });
+    }
+    else {
+        AppController.addTaskToCurrentProject({ title, description, dueDate, priority })
+    }
+
+    modal.classList.add("hidden");
+})
