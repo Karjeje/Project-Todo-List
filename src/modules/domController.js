@@ -73,27 +73,7 @@ export function renderTodoList() {
         details.style.display = details.style.display === "none" ? "flex" : "none";
     })
 
-    details.querySelector(".edit-task").addEventListener("click", () => {
-      const newTitle = prompt("Edit title:", task.title);
-      if (newTitle !== null) task.title = newTitle;
-
-      const newDesc = prompt("Edit description:", task.description);
-      if (newDesc !== null) task.description = newDesc;
-
-      const newDate = prompt("Edit due date:", task.dueDate);
-      if (newDate !== null) task.dueDate = newDate;
-
-      const newPriority = prompt("Edit priority (low, normal, high):", task.priority);
-      if (newPriority !== null) task.priority = newPriority;
-
-      const updates = {};
-      if (newTitle !== null) updates.title = newTitle;
-      if (newDesc !== null) updates.description = newDesc;
-      if (newDate !== null) updates.dueDate = newDate;
-      if (newPriority !== null) updates.priority = newPriority;
-
-      AppController.updateTask(task.id, updates);
-    });
+    details.querySelector(".edit-task").addEventListener("click", () => openTaskModal(task));
 
     li.appendChild(summary);
     li.appendChild(details);
@@ -144,3 +124,5 @@ form.addEventListener("submit", (e) => {
 
     modal.classList.add("hidden");
 })
+
+export {openTaskModal};
