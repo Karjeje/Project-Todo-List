@@ -18,6 +18,34 @@
         <ul id="todo-list"></ul>
         <button id="add-task-btn">Add Task</button>
       </main>
+      <div id="task-modal" class="modal hidden">
+        <div class="modal-content">
+          <h3>Add / Edit Task</h3>
+          <form id="task-form">
+            <label for="task-title"
+              >Title: <input type="text" id="task-title"
+            /></label>
+            <label for="task-desc"
+              >Description: <input type="text" id="task-desc"
+            /></label>
+            <label for="task-date"
+              >Due Date: <input type="datetime-local" id="task-date"
+            /></label>
+            <label for="task-priority"
+              >Priority:
+              <select id="task-priority">
+                <option value="low">Low</option>
+                <option value="normal" selected>Normal</option>
+                <option value="high">High</option>
+              </select>
+            </label>
+            <div class="modal-actions">
+              <button type="submit">Save</button>
+              <button type="button" id="cancel-btn">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>
