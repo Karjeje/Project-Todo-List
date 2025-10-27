@@ -86,12 +86,13 @@ export function renderTodoList() {
       const newPriority = prompt("Edit priority (low, normal, high):", task.priority);
       if (newPriority !== null) task.priority = newPriority;
 
-      AppController.updateTask(task.id, {
-        title: newTitle,
-        description: newDesc,
-        dueDate: newDate,
-        priority: newPriority
-      });
+      const updates = {};
+      if (newTitle !== null) updates.title = newTitle;
+      if (newDesc !== null) updates.description = newDesc;
+      if (newDate !== null) updates.dueDate = newDate;
+      if (newPriority !== null) updates.priority = newPriority;
+
+      AppController.updateTask(task.id, updates);
     });
 
     li.appendChild(summary);
