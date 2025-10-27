@@ -4,7 +4,7 @@ export function renderProjectList() {
     const list = document.querySelector("#project-list");
     list.classList.add("projectlist");
     list.innerHTML = "";
-    AppController.getProjects().forEach((project, index) => {
+    AppController.getProjects().forEach((project) => {
         const li = document.createElement("li");
         const span = document.createElement("span");
         const removeBtn = document.createElement("button");
@@ -15,7 +15,7 @@ export function renderProjectList() {
         removeBtn.innerHTML = "X"
         removeBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            AppController.removeProject(index);
+            AppController.removeProject(project.id);
         });
         li.appendChild(span);
         li.appendChild(removeBtn);
@@ -37,7 +37,7 @@ export function renderTodoList() {
   title.textContent = project.name;
   list.innerHTML = "";
 
-  project.tasks.forEach((task, index) => {
+  project.tasks.forEach((task) => {
     const li = document.createElement("li");
     if (task.priority === "low") {
         li.classList.add("low");
@@ -55,7 +55,7 @@ export function renderTodoList() {
     span.textContent = `${task.title}, due ${task.dueDate}`;
     removeBtn.innerHTML = "X";
     removeBtn.addEventListener("click", () => {
-        AppController.removeTaskFromCurrentProject(index);
+        AppController.removeTaskFromCurrentProject(task.id);
     })
 
     const details = document.createElement("div");
@@ -86,7 +86,12 @@ export function renderTodoList() {
       const newPriority = prompt("Edit priority (low, normal, high):", task.priority);
       if (newPriority !== null) task.priority = newPriority;
 
-      renderTodoList();
+      AppController.updateTask(task.id, {
+        title: newTitle,
+        description: newDesc,
+        dueDate: newDate,
+        priority: newPriority
+      });
     });
 
     li.appendChild(summary);
