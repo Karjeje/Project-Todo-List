@@ -94,10 +94,6 @@ li {
     background-color: rgb(206, 39, 39, 0.3);
 }
 
-.hidden {
-  display: hidden;
-}
-
 .modal {
   position: fixed;
   inset: 0;
@@ -105,6 +101,10 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.hidden {
+  display: none;
 }
 
 .modal-content {
