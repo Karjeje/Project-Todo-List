@@ -39,13 +39,13 @@ export function renderTodoList() {
 
   project.tasks.forEach((task) => {
     const li = document.createElement("li");
-    if (task.priority === "low") {
+    if (task.priority.toLowerCase() === "low") {
         li.classList.add("low");
     }
-    else if (task.priority === "normal") {
+    else if (task.priority.toLowerCase() === "normal") {
         li.classList.add("normal");
     }
-    else if (task.priority === "high") {
+    else if (task.priority.toLowerCase() === "high") {
         li.classList.add("high");
     };
     const summary = document.createElement("div");
