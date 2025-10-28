@@ -32,6 +32,8 @@ export function renderTodoList() {
 
   if (!project) {
     title.textContent = "No project selected.";
+    const list = document.querySelector("#todo-list");
+    list.innerHTML = "";
     return;
   }
 
