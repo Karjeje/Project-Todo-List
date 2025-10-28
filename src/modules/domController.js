@@ -1,4 +1,5 @@
 import AppController from "./appController";
+import { format, parseISO, isPast, differenceInDays } from "date-fns";
 
 export function renderProjectList() {
     const list = document.querySelector("#project-list");
@@ -52,7 +53,11 @@ export function renderTodoList() {
     summary.classList.add("summary");
     const span = document.createElement("span");
     const removeBtn = document.createElement("button");
-    span.textContent = `${task.title}, due ${task.dueDate}`;
+    const formattedDate = format(parseISO(task.dueDate), "EEE, MMM d yyyy, HH:mm");
+    if (isPast(parseISO(task.dueDate))) {
+        li.classList.add("overdue")
+    };
+    span.textContent = `${task.title} (due ${formattedDate})`;
     removeBtn.innerHTML = "X";
     removeBtn.addEventListener("click", () => {
         AppController.removeTaskFromCurrentProject(task.id);

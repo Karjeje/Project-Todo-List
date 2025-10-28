@@ -58,6 +58,7 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 
 .todolist > li button, .projectlist > li > button {
@@ -114,3 +115,6 @@ li {
   width: 300px;
 }
 
+.overdue {
+    border: 2px solid red;
+}

@@ -1,6 +1,7 @@
 import Project from "./project";
 import Task from "./task";
 import { renderProjectList, renderTodoList } from "./domController";
+import { parseISO } from "date-fns";
 
 const AppController = (() => {
     const projects = [];
@@ -83,8 +84,8 @@ const AppController = (() => {
             return;
         }
 
-        if (!dueDate || isNaN(Date.parse(dueDate))) {
-            alert("Invalid date format. Use YYYY-MM-DD.");
+        if (!dueDate || isNaN(parseISO(dueDate))) {
+            alert("Invalid date format. Please use the date picker.");
             return;
         }
 
