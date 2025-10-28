@@ -80,11 +80,11 @@ const AppController = (() => {
         }
 
         if (!title || title.trim() === "") {
-            alert("Task names cannot be empty.");
+            alert("Task must have a title.");
             return;
         }
 
-        if (!dueDate || isNaN(parseISO(dueDate))) {
+        if (dueDate && isNaN(parseISO(dueDate))) {
             alert("Invalid date format. Please use the date picker.");
             return;
         }
