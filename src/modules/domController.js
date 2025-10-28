@@ -1,5 +1,5 @@
 import AppController from "./appController";
-import { format, parseISO, isPast, differenceInDays } from "date-fns";
+import { format, parseISO, isPast, compareAsc, parse } from "date-fns";
 
 export function renderProjectList() {
     const list = document.querySelector("#project-list");
@@ -40,7 +40,21 @@ export function renderTodoList() {
   title.textContent = project.name;
   list.innerHTML = "";
 
-  project.tasks.forEach((task) => {
+  const sortedTasks = project.tasks.sort((a, b) => {
+    const priorityOrder = { high: 1, normal: 2, low: 3 };
+
+    const priorityA = priorityOrder[a.priority.toLowerCase()] || 4;
+    const priorityB = priorityOrder[b.priority.toLowerCase()] || 4;
+
+    if (priorityA !== priorityB) return priorityA - priorityB;
+
+    if (!a.dueDate) return 1;
+    if (!b.dueDate) return -1;
+
+    return compareAsc(parseISO(a.dueDate), parseISO(b.dueDate));
+  })
+
+  sortedTasks.forEach((task) => {
     const li = document.createElement("li");
     if (task.priority.toLowerCase() === "low") {
         li.classList.add("low");
@@ -55,11 +69,27 @@ export function renderTodoList() {
     summary.classList.add("summary");
     const span = document.createElement("span");
     const removeBtn = document.createElement("button");
-    const formattedDate = format(parseISO(task.dueDate), "EEE, MMM d yyyy, HH:mm");
-    if (isPast(parseISO(task.dueDate))) {
+    
+    function getFormattedDate(dateString) {
+        if (!dateString) return "No due date";
+        const parsed = parseISO(dateString);
+        if (isNaN(parsed)) return "No due date";
+        return format(parsed, "EEE, MMM d yyyy, HH:mm");
+    }
+
+    const formattedDate = getFormattedDate(task.dueDate);
+
+    if (task.dueDate && !isNaN(parseISO(task.dueDate)) && isPast(parseISO(task.dueDate))) {
         li.classList.add("overdue")
     };
-    span.textContent = `${task.title} (due ${formattedDate})`;
+
+    if (formattedDate !== "No due date") {
+        span.textContent = `${task.title} (due ${formattedDate})`;
+    }
+    else {
+        span.textContent = `${task.title}`
+    }    
+
     removeBtn.innerHTML = "X";
     removeBtn.addEventListener("click", () => {
         AppController.removeTaskFromCurrentProject(task.id);
